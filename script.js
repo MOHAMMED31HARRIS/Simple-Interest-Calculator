@@ -1,29 +1,29 @@
 function compute() {
-    //Get the values and calculate 
-    var principal = parseFloat(document.getElementById("principal").value);
-    var rate = parseFloat(document.getElementById("rate").value);
-    var years = parseInt(document.getElementById("years").value);
-    var interest = principal * years * rate / 100;
-    var yearInTheFuture = new Date().getFullYear() + years;
-    //Create the Interest text
-    document.getElementById("result").innerHTML = "Interest : If you deposit <mark>" + principal + "</mark>,<br/>" +
-        "at an interest rate of <mark>" + rate + "</mark>,<br/>" +
-        "You will receive an amount of <mark>" + interest + "</mark>,<br/> " +
-        "in the year <mark>" + yearInTheFuture + "</mark>";
-        //update their  value
-function getSliderValue() {
-    document.getElementById("rateSpan").innerHTML = document.getElementById("rate").value;
-}
-//Check for positive values
-function validateAmount() {
     var principal = document.getElementById("principal").value;
-    var biggerThanZero = parseInt(principal) > 0;
-    if (!biggerThanZero) {
-        alert("Enter a positive number");
+    var rate = document.getElementById("rate").value;
+    var years = document.getElementById("years").value;
+
+    if (principal == "") { //Here Check is empty
+        alert("Amount can't by empty or alphabet character");
         document.getElementById("principal").focus();
-         document.getElementById("result").innerHTML = "Interest : If you deposit <mark>" + principal + "</mark>,<br/>" +
-        "at an interest rate of <mark>" + rate + "</mark>,<br/>" +
-        "You will receive an amount of <mark>" + interest + "</mark>,<br/> " +
-        "in the year <mark>" + yearInTheFuture + "</mark>";
+        return false;
+    } else {
+        if (principal <= 0) { //Here check is a positive number
+            alert("Enter a positive number");
+            document.getElementById("principal").focus();
+            return false;
+        }
     }
+
+
+    var HDB = new Date().getFullYear(); //Here get the year
+    var future = parseInt(HDB, 10) + parseInt(years, 10);
+    var interest = principal * years * rate / 100;
+    var result = "If you deposit <mark>" + principal + "</mark>,<br> at an interest rate of <mark>" + rate + "</mark> % <br> You will receive an amount of <mark>" + interest + ",</mark><br> in the year <mark>" + future + "</mark>";
+    document.getElementById("result").innerHTML = result;
 }
+
+function showVal(newVal) { //Show range value in span
+    document.getElementById("showRate").innerHTML = newVal + '%';
+}
+
